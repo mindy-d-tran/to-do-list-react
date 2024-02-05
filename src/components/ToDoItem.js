@@ -1,7 +1,11 @@
 function ToDoItem(props) {
+  const { id, title, completed } = props.item;
   return (
     <div>
-      <h3>to-do item</h3>
+      <input type="checkbox" id={id} name={title} value={title} defaultChecked={completed} />
+      <label>{title}</label>
+      <button>Edit</button>
+      <button>Delete</button>
     </div>
   );
 }
