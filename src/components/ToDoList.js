@@ -1,10 +1,7 @@
 // import { useState } from "react";
 import ToDoItem from "./ToDoItem";
 
-//importing data
-import toDoData from "../data/toDo.js";
-
-function ToDoList() {
+function ToDoList({initialState}) {
 //   const [newTask, setNewTask] = useState("");
 
 //   const handleChange = (e) => {
@@ -23,7 +20,7 @@ function ToDoList() {
 
       {/* form to check the todo list items */}
       <form>
-        {toDoData.map((toDoItem) => {
+        {initialState.map((toDoItem) => {
           return <ToDoItem key={toDoItem.id} item={toDoItem} />;
         })}
       </form>
