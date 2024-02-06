@@ -33,7 +33,7 @@ function ToDoList({ state, dispatch }) {
       </form>
 
       {/* form to check the todo list items */}
-      <form>
+      <form onSubmit={(e)=>e.preventDefault()}>
         {state.map((toDoItem) => {
           return (
             <ToDoItem key={toDoItem.id} item={toDoItem} dispatch={dispatch} />
