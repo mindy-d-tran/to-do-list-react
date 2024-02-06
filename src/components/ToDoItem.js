@@ -1,25 +1,29 @@
 import { useState } from "react";
 
 function ToDoItem(props) {
+  // deconstructing props
   const { item, dispatch } = props;
   const { id, title, completed } = item;
 
-  const [edit, setEdit] = useState(false);
+  // setting states
+  const [showEdit, setShowEdit] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
 
   // updating task whenever there is a change in the text box
   const handleOnChange = (e) => {
     setNewTitle(e.target.value);
-    // console.log(state);
   };
 
+  // change label to text box if you click on edit button
   const handleEdit = () => {
-    setEdit(!edit);
+    setShowEdit(true);
   };
 
-  const handleEditItem = () => {
-    dispatch({ type: "handleEdit", payload: {} });
-    handleEdit();
+  // save the edit you did tot the task
+  const handleEditTask = () => {
+    console.log([id, newTitle]);
+    dispatch({ type: "editTask", payload: { id:id, newTitle:newTitle } });
+    setShowEdit(false);
   };
 
   // handle deleting a task from the list
@@ -27,29 +31,28 @@ function ToDoItem(props) {
     console.log(id);
     dispatch({ type: "deleteTask", payload: { id } });
   };
+  //update the completed status
+  const handleIsComplete = ()=>{
+    dispatch({ type: "completeTask", payload: { id } });
+    console.log(item);
+  }
 
   return (
     <div>
-      {edit ? (
-        <div onClick={handleEditItem}>
-          <input type="checkbox" id={id} name={title} value={title} />
+      <input type="checkbox" id={id} defaultChecked={completed} onClick={handleIsComplete} />
+      {showEdit ? (
+        <>
           <input
+            id={id}
             type="text"
-            placeholder="Add task"
             onChange={handleOnChange}
             value={newTitle}
           />
-          <button>Save</button>
-        </div>
+
+          <button onClick={handleEditTask}>Save</button>
+        </>
       ) : (
         <>
-          <input
-            type="checkbox"
-            id={id}
-            name={title}
-            value={title}
-            defaultChecked={completed}
-          />
           <label>{title}</label>
           <button onClick={handleEdit}>Edit</button>
           <button onClick={handleDeleteTask}>Delete</button>
