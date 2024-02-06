@@ -1,11 +1,24 @@
 function ToDoItem(props) {
-  const { id, title, completed } = props.item;
+  const { item, dispatch } = props;
+  const { id, title, completed } = item;
+
+  // handle deleting a task from the list
+  const handleDeleteTask = () => {
+    dispatch({ type: "deleteTask", payload: { id } });
+  };
+
   return (
     <div>
-      <input type="checkbox" id={id} name={title} value={title} defaultChecked={completed} />
+      <input
+        type="checkbox"
+        id={id}
+        name={title}
+        value={title}
+        defaultChecked={completed}
+      />
       <label>{title}</label>
-      <button>Edit</button>
-      <button>Delete</button>
+      <button id={id}>Edit</button>
+      <button onClick={handleDeleteTask}>Delete</button>
     </div>
   );
 }
