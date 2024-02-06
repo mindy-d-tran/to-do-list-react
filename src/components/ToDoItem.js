@@ -4,6 +4,7 @@ function ToDoItem(props) {
 
   // handle deleting a task from the list
   const handleDeleteTask = () => {
+    console.log(id);
     dispatch({ type: "deleteTask", payload: { id } });
   };
 
