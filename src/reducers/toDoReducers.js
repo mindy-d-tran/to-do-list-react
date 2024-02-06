@@ -1,5 +1,4 @@
 export default function reducer(state, action) {
-  console.log(state);
   switch (action.type) {
     case "addTask":
       return [
@@ -14,8 +13,19 @@ export default function reducer(state, action) {
     case "deleteTask":
       return state.filter((task) => task.id !== action.payload.id);
 
+    case "completeTask":
+      return state.map((task) => {
+        return task.id === action.payload.id
+          ? { ...task, completed: !task.completed }
+          : task;
+      });
+
     case "editTask":
-      return;
+      return state?.map((task) => {
+        return task.id === action.payload.id
+          ? { ...task, title: action.payload.newTitle }
+          : task;
+      });
 
     default:
       break;
